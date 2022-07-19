@@ -1,0 +1,77 @@
+@import url(./fonts/style.css);
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #464646;
+    min-height: 100vh;
+}
+
+.calculator {
+    font-family: "Thasadith Regular", sans-serif;
+    font-size: 32px;
+    color: #fff;
+    height: 700px;
+    width: 520px;
+    border: 5px solid black;
+    border-radius: 35px;
+    padding: 35px 50px;
+    box-shadow: 0 0 20px 15px #858585bb;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.display {
+    font-size: 38px;
+    border: 15px solid #91b9d6;
+    border-radius: 20px;
+    padding: 10px 20px;
+    box-shadow: 8px 8px 5px #0004;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 95px);
+    gap: 5px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+button {
+    font-family: "Thasadith Regular", sans-serif;
+    font-size: 32px;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid #fff;
+    width: 95px;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.zero {
+    grid-column: 1 / span 3;
+    aspect-ratio: 0;
+    width: 100%;
+}
+
+.calculator,
+.number {
+    background-color: transparent;
+}
+
+.special {
+    background-color: #999999;
+}
+
+.operator {
+    background-color: #576785;
+}
