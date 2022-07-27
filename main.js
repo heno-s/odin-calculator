@@ -6,6 +6,7 @@ let operator = "";
 let rightOperand = "";
 
 buttons.forEach((button) => button.addEventListener("click", handleInput));
+window.addEventListener("keydown", handleKeyInput);
 
 function add(n1, n2) {
     return n1 + n2;
@@ -52,14 +53,20 @@ function populateDisplay(input) {
     display.textContent = input;
 }
 
+function handleKeyInput(evt) {
+    const button = document.querySelector(`[data-key="${evt.key}"]`);
+    if (!button) return;
+    button.click();
+}
+
 function handleInput(evt) {
     if (!(evt instanceof Event)) return;
     if (this.classList.contains("number")) {
-        handleNumber(this.textContent);
+        handleNumber(this.dataset.key);
     } else if (this.classList.contains("operator")) {
-        handleOperator(this.textContent);
+        handleOperator(this.dataset.key);
     } else if (this.classList.contains("special")) {
-        handleSpecial(this.textContent);
+        handleSpecial(this.dataset.key);
     }
     populateDisplay(displayValue);
 }
@@ -87,15 +94,15 @@ function handleOperator(op) {
 
 function handleSpecial(key) {
     key = key.toLowerCase();
-    if (key === "ac") {
+    if (key === "delete") {
         clear();
-    } else if (key === "del") {
+    } else if (key === "backspace") {
         displayValue = displayValue.slice(0, -1);
         if (displayValue === "-") {
             displayValue = "0";
         }
         syncDisplayValueWithOperands();
-    } else if (key === "+/-") {
+    } else if (key === "!") {
         displayValue = displayValue[0] === "-" ? displayValue.slice(1) : "-" + displayValue;
         syncDisplayValueWithOperands();
     }
@@ -116,3 +123,24 @@ function syncDisplayValueWithOperands() {
 }
 
 populateDisplay(displayValue);
+
+/*
+Operátor stlačený ak:
+    nie je žiadny displayValue -> priradiť leftOperandu 0 a operátor zapísať do premennej operator
+    je leftOperand a aj operátor -> operátor prepísať do premennej operator 
+    je leftOperand bez operátora -> operátor prepísať do premennej operator 
+    je leftOperand, operátor a aj rightOperand -> vypočítať a zobraziť výsledok, zapísať ho do premennej leftOperand a zapísať novo stlačený operátor do premennej operator
+
+*/
+
+/*
+
+Ak stlačím operátor, rozsvieti sa tlačítko (správanie popísané hore)
+Ak stlačím číslo, aktualizujem displayValue
+správanie kalkulačky
+    pri stlačení čísel, aktualizovať ukázanú hodnotu na displeji
+        ak je leftOperand
+    pri stlačení operátora (viď hore)
+        ak 
+    pri stlačení čpeciálneho tlačítka, vykonať náležitú funkciu
+*/
