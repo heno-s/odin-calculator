@@ -21,6 +21,9 @@ function multiply(n1, n2) {
 }
 
 function divide(n1, n2) {
+    if (n2 === 0) {
+        throw new Error("Cannot divide by 0");
+    }
     return n1 / n2;
 }
 
@@ -60,15 +63,20 @@ function handleKeyInput(evt) {
 }
 
 function handleInput(evt) {
-    if (!(evt instanceof Event)) return;
-    if (this.classList.contains("number")) {
-        handleNumber(this.dataset.key);
-    } else if (this.classList.contains("operator")) {
-        handleOperator(this.dataset.key);
-    } else if (this.classList.contains("special")) {
-        handleSpecial(this.dataset.key);
+    try {
+        if (!(evt instanceof Event)) return;
+        if (this.classList.contains("number")) {
+            handleNumber(this.dataset.key);
+        } else if (this.classList.contains("operator")) {
+            handleOperator(this.dataset.key);
+        } else if (this.classList.contains("special")) {
+            handleSpecial(this.dataset.key);
+        }
+        populateDisplay(displayValue);
+    } catch (e) {
+        clear();
+        populateDisplay(e.message);
     }
-    populateDisplay(displayValue);
 }
 
 function handleNumber(num) {
