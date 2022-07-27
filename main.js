@@ -106,7 +106,7 @@ function handleSpecial(key) {
         clear();
     } else if (key === "backspace") {
         displayValue = displayValue.slice(0, -1);
-        if (displayValue === "-") {
+        if (displayValue === "-" || displayValue === "") {
             displayValue = "0";
         }
         syncDisplayValueWithOperands();
