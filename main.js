@@ -80,9 +80,11 @@ function handleInput(evt) {
 }
 
 function handleNumber(num) {
-    if (displayValue === "0" || displayValue === "-0" || (operator && !rightOperand)) {
+    if (num !== "." && (displayValue === "0" || displayValue === "-0" || (operator && !rightOperand))) {
         displayValue = "";
     }
+
+    if (num === "." && !canAddDot(displayValue)) return;
 
     displayValue += num;
     if (!operator) {
@@ -130,25 +132,9 @@ function syncDisplayValueWithOperands() {
     }
 }
 
+function canAddDot(input) {
+    const hasDot = input.includes(".");
+    return !hasDot;
+}
+
 populateDisplay(displayValue);
-
-/*
-Operátor stlačený ak:
-    nie je žiadny displayValue -> priradiť leftOperandu 0 a operátor zapísať do premennej operator
-    je leftOperand a aj operátor -> operátor prepísať do premennej operator 
-    je leftOperand bez operátora -> operátor prepísať do premennej operator 
-    je leftOperand, operátor a aj rightOperand -> vypočítať a zobraziť výsledok, zapísať ho do premennej leftOperand a zapísať novo stlačený operátor do premennej operator
-
-*/
-
-/*
-
-Ak stlačím operátor, rozsvieti sa tlačítko (správanie popísané hore)
-Ak stlačím číslo, aktualizujem displayValue
-správanie kalkulačky
-    pri stlačení čísel, aktualizovať ukázanú hodnotu na displeji
-        ak je leftOperand
-    pri stlačení operátora (viď hore)
-        ak 
-    pri stlačení čpeciálneho tlačítka, vykonať náležitú funkciu
-*/
